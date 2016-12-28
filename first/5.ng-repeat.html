@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="ngModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <!--ul>li*4-->
+    <ul>
+        <li ng-repeat="(key,val) in arrs">
+            {{val}}  {{$index}} {{key}}
+            <!--是否是中间：{{$middle}}
+            是否是第一个：{{$first}}
+            是否是最后一个：{{$last}}
+            是否是最后奇数：{{$odd}}
+            是否是偶数:{{$even}}-->
+        </li>
+    </ul>
+    <!--要循环谁就在谁身上写ng-repeat-->
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //一切从模块开始
+    var app = angular.module('ngModule',[]);
+    app.controller('myCtrl',['$scope',function ($scope) {
+        $scope.arrs = ['banner','apple','orange','pear'];
+    }]);
+</script>
+</body>
+</html>

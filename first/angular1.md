@@ -28,7 +28,7 @@ npm install angular
 
 > 在当前的文件夹下生成node_modules文件将安好的内容放入（名字(package.json)不能叫angular1）
 
-## 使用angular
+## 应用angular
 - ng-app
 让angular自行启动，并且创建一个$rootScope跟作用域(window)
 - ng-model(表单元素上 input)
@@ -48,3 +48,29 @@ npm install angular
 [ng-cloak]{display:none} 
 ```
 
+## 控制器和模块
+- 生成模块
+```
+angular.module('moduleName',[]);
+```
+- 创建控制器
+```
+angular.module('moduleName').controller('ctrlName',function($scope){}) scope就是我们的viewModel
+```
+- 应用控制器
+```
+<div ng-controller="ctrlName">{{作用域上的变量}}</div>
+```
+## 控制器的特点
+- 1.主要控制数据
+- 2.不要在控制器中操作DOM(link函数中?)
+- 3.控制器的作用范围(与dom标签结构平齐)
+- 4.控制器可以嵌套(嵌套的是带有控制器的dom节点 不是控制器)
+- 5.有继承关系，父作用域不能继承子作用域，子作用域可以继承父作用域
+
+## 配置全局属性
+```
+app.run(function($rootScope){});
+```
+
+> 防止压缩：代码在压缩的过程会将变量压缩成较短改变了形参的名字，angular无法获取，必须采用数组的形式，数组的第一项对应函数的第一个形参，以此类推

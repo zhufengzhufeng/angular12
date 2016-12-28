@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="ngModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <ul>
+        橘子
+            酸
+            甜
+        苹果
+            红
+            绿
+            黄
+        <li >
+
+        </li>
+    </ul>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //一切从模块开始
+    var app = angular.module('ngModule',[]);
+    app.controller('myCtrl',['$scope',function ($scope) {
+        $scope.arrs = [{name:'orange',type:['酸','甜']},{name:'apple',type:['红','绿','黄']}];
+    }]);
+</script>
+</body>
+</html>

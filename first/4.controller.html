@@ -11,17 +11,26 @@
 </head>
 <!--ng-controller相当于调用了控制器-->
 <body>
-<div ng-controller="myCtrl">
-    <div ng-cloak>{{name}}{{age}}</div>
+<div ng-controller="myCtrl1">
+    {{name}}
+    <div ng-controller="myCtrl2">
+        {{name}}
+    </div>
 </div>
 <!--取最近的作用域上的值-->
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule', []);
-    app.controller('myCtrl', function ($scope) {
-        $scope.name = 'zfpx';
-        $scope.age = 9;
-        //{{}}会将作用域上的值取出来($scope)
+    //防止压缩：代码在压缩的过程会将变量压缩成较短改变了形参的名字，angular无法获取，必须采用数组的形式，数组的第一项对应函数的第一个形参，以此类推
+    app.run(['$rootScope',function(a){a.url="http://www.baidu.com"}]);
+    /*app.run(function ($rootScope) {//angular自动执行后创建跟作用域，可以在此函数中，维护全局变量
+        $rootScope.url = 'http://www.baidu.com';
+    });*/
+    app.controller("myCtrl1",["$scope","$rootScope",function(a,b){
+        a.name=b.url+"/user"
+    }]);
+    app.controller('myCtrl2', function ($scope) {
+
     });
 </script>
 </body>
