@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="cartCtrl">
+<!--将数据内容展示成表格-->
+<script src="./node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('cartCtrl',['$scope',function ($scope) {
+        $scope.products = [
+            {productName:'鲳鱼',productPrice:59.9,productCount:1},
+            {productName:'苹果',productPrice:5,productCount:2},
+            {productName:'香蕉',productPrice:3.9,productCount:3}
+        ]
+    }]);
+</script>
+</body>
+</html>

@@ -74,3 +74,49 @@ app.run(function($rootScope){});
 ```
 
 > 防止压缩：代码在压缩的过程会将变量压缩成较短改变了形参的名字，angular无法获取，必须采用数组的形式，数组的第一项对应函数的第一个形参，以此类推
+
+## ng-repeat  
+提供常用属性 $index $odd $even....
+```
+<ul>
+    <li ng-repeat="(键,值) in 对象">{{$index}}</li>
+</ul>
+```
+- 数组
+如果内容重复要加track by $index  
+- 对象
+对象的键(属性名)和$index(索引)不是一个东西
+
+## 第一天作业
+模拟数据实现购物车基本界面
+
+## 配置内网
+第一次下载需要先指向zhufeng网址下载,提升网速
+```
+npm config set registry "http://172.18.0.199"
+```
+## 切换代理的工具
+```
+npm install nrm -g
+```
+## 添加源
+```
+nrm add 名字 地址/nrm del 名字
+```
+
+> sudo增加权限
+
+## 查看源
+
+## 创建静态博客hexo
+需要的环境nodejs,git
+
+- 安装hexo
+```
+npm install -g hexo-cli
+```
+- 生成博客
+```
+hexo init 文件夹的名字
+```
+> 全局安装的意思是：只在命令行下使用
