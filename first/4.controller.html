@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <style>
+        [ng-cloak] {
+            display: none
+        }
+    </style>
 </head>
 <!--ng-controller相当于调用了控制器-->
-<body ng-controller="myCtrl">
-{{name}}{{age}}
+<body>
+<div ng-controller="myCtrl">
+    <div ng-cloak>{{name}}{{age}}</div>
+</div>
 <!--取最近的作用域上的值-->
 <script src="node_modules/angular/angular.js"></script>
 <script>
-    var app = angular.module('appModule',[]);
-    app.controller('myCtrl',function ($scope) {
+    var app = angular.module('appModule', []);
+    app.controller('myCtrl', function ($scope) {
         $scope.name = 'zfpx';
         $scope.age = 9;
         //{{}}会将作用域上的值取出来($scope)
