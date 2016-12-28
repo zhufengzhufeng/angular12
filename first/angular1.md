@@ -26,4 +26,6 @@ npm init -y
 npm install angular
 ```
 
-> 在当前的文件夹下生成node_modules文件将安好的内容放入
+> 在当前的文件夹下生成node_modules文件将安好的内容放入（名字(package.json)不能叫angular1）
+
+## 使用angular

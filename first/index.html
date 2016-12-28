@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--将数据取到视图上-->
+<!--实现一个简单的hello world-->
+<input type="text" ng-model="name">
+<!--输入框中的值发生变化，会影响数据的变化{{}}取得是数据，数据变了会影响视图，取到的值就会跟随变化-->
+{{name}}
+
+<script src="node_modules/angular/angular.min.js"></script>
+<script>
+    //引用angular后 会送一个angular对象 ($ jquery)
+    console.log(angular);
+    //让angular自动调用我们的代码，（告诉哪里归angular所管理） ng-app(指令)
+    //mvvm  视图变了数据要变 (form表单元素) input (增加双向绑定)
+</script>
+</body>
+</html>
