@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body >
+<input type="text" ng-model="name">
+<!--{{name}}-->
+<!--绑定 属性用户是看不到的，将angular编译好后的数据html到div中-->
+<div ng-bind="name></div>
+<!--适合 单一元素，标签内不能放置数据-->
+<style>
+    [ng-cloak]{display: none!important;}
+</style>
+<div ng-cloak>
+    {{name}} {{name}}
+</div>
+<!--适合 一片元素 防止闪烁 需要用户自己隐藏 等待angular加载后会移除掉ng-cloak属性-->
+<script src="node_modules/angular/angular.js"></script>
+</body>
+</html>

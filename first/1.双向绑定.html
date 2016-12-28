@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
-<head>
+<html ng-app>
+<head lang="en" >
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body ng-init="name=1">
 <!--将数据取到视图上-->
 <!--实现一个简单的hello world-->
-<input type="text" ng-model="name">
+<input type="text" ng-model="user.name">
+<input type="text" ng-model="user.age">
 <!--输入框中的值发生变化，会影响数据的变化{{}}取得是数据，数据变了会影响视图，取到的值就会跟随变化-->
-{{name}}
-
+name:{{name}}
+name:{{name=100}}
+age:{{age}}
+<!--
+    1.ng-model只能放变量名不能有任何运算
+    2.{{}}只能运算赋值三元
+    3.如果ng-model 用点的形式取得就是.前面对象的属性，如果这个对象不存在，则会声明
+-->
 <script src="node_modules/angular/angular.min.js"></script>
 <script>
     //引用angular后 会送一个angular对象 ($ jquery)
