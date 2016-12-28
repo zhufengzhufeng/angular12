@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--指定一个启动的模块的名字-->
+<html lang="en" ng-app="zfModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--所有的数据 都放在$rootScope (模块化) -->
+<!--先要创建模块-->
+<div ng-controller="firstCtrl">{{name}}</div>
+<div ng-controller="secondCtrl">{{name}}</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //angular对象 module方法
+    //1.模块的名字 2.依赖的模块，如果没有依赖需要放一个空数组
+    //创建模块
+    var app = angular.module('zfModule',[]);//$('.aa').html('123')
+    //获取模块
+    //控制器的名字，控制器的定义(买一送一 送一个作用域$scope)
+    app.controller('firstCtrl',function ($scope) {//送的$scope不能改名字
+        $scope.name = 1;
+    });
+    app.controller('secondCtrl',function ($scope) {
+        $scope.name = 'zfpx';
+    });
+</script>
+</body>
+</html>
