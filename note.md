@@ -1,3 +1,5 @@
+姜文 phone:18310349227  qq：1035465284
+
 # 全日制
 ## 前三周
 angularjs1.0 
@@ -35,3 +37,7 @@ settings-> puglin -> from disk -> restart webstorm
 ## 配置快捷键
 
 settings - > live-templates -> javascript-> + live template ->简称+内容->define
+
+## 配置node
+
+settings -> npm
