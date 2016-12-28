@@ -7,16 +7,13 @@
 <body>
 <div ng-controller="myCtrl">
     <ul>
-        橘子
-            酸
-            甜
-        苹果
-            红
-            绿
-            黄
-        <li >
-
-        </li>
+        <li ng-repeat="val in arrs track by $index">
+        {{val.name}}
+        <ul>
+            <!--默认是按照值来遍历，所以不能有重复，根据唯一$index来进行遍历-->
+            <li ng-repeat="v in val.type track by $index">{{v}}</li>
+        </ul>
+    </li>
     </ul>
 </div>
 <script src="node_modules/angular/angular.js"></script>
@@ -24,7 +21,10 @@
     //一切从模块开始
     var app = angular.module('ngModule',[]);
     app.controller('myCtrl',['$scope',function ($scope) {
-        $scope.arrs = [{name:'orange',type:['酸','甜']},{name:'apple',type:['红','绿','黄']}];
+        $scope.arrs = [
+            {name:'orange',type:['酸','甜','苦','甜']},
+            {name:'apple',type:['红','绿','黄']}
+        ];
     }]);
 </script>
 </body>

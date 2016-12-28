@@ -1,0 +1,22 @@
+<!doctype html>
+<html ng-app="ngModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <ul>
+        <!--$index仍然代表的是索引 每次循环会产生作用域 防止后面的覆盖掉前面的属性-->
+        <li ng-repeat="(k,val) in objs">{{k}}:{{val}} {{$index}}</li>
+    </ul>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('ngModule',[]);
+    app.controller('myCtrl',['$scope',function ($scope) {
+        $scope.objs = {'name':'zfpx','age':8,'address':'回龙观东大街'}
+    }]);
+</script>
+</body>
+</html>
