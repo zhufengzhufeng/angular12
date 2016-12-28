@@ -119,4 +119,9 @@ npm install -g hexo-cli
 ```
 hexo init 文件夹的名字
 ```
+- 启动服务
+```
+cd 文件夹的名字
+hexo server
+```
 > 全局安装的意思是：只在命令行下使用
