@@ -6,33 +6,33 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body ng-controller="myCtrl">
-<!--限制输入框中的数据改变的时间，延迟 失去焦点-->
-<!--ng-model-options="{updateOn:'blur'}" 失去焦点-->
-<!--ng-model-options="{debounce:500}" 延迟500毫秒-->
-搜索值：<input type="text" ng-model="query" ng-model-options="{debounce:500}">
 <table class="table table-bordered">
     <tr >
         <th>姓名</th>
-        <th ng-click="flag=!flag;language='chinese'">语文</th>
-        <th ng-click="flag=!flag;language='english'">英语</th>
-        <th ng-click="flag=!flag;language='math'">数学</th>
+        <th>语文</th>
+        <th>英语</th>
+        <th>数学</th>
     </tr>
-    <!--1.根据哪个属性排序(字符串) 2.是否倒序 true倒序-->
-    <!--2.filter过滤 第二个参数是要过滤的内容在所有数据中搜索-->
-    <!--  filter第二个参数可以限制筛选范围，增加效率 范围中写多个表示并且-->
-    <tr ng-repeat="score in scores | orderBy:language:flag | filter:{math:query}">
-        <!--语文要有3 英语也要3-->
+    <tr ng-repeat="score in scores">
         <td>{{score.name}}</td>
         <td>{{score.chinese}}</td>
         <td>{{score.english}}</td>
         <td>{{score.math}}</td>
     </tr>
 </table>
+{{'abcedfg' | capitalize:0:3}}
+{{hello zfpx welcome | headCapital}}
 <script src="node_modules/angular/angular.min.js"></script>
 <script>
     var app = angular.module('appModule',[]);
+    //自定义过滤器 创建过滤器
+    app.filter('capitalize',function () {
+        return function (data,param1,param2) { //data表示要过滤的数据
+            return  data.slice(param1,param2).toUpperCase()+data.slice(param2);
+            //返回过滤的后的结果
+        }
+    });
     app.controller('myCtrl',function ($scope) {
-        $scope.language = 'chinese';
         $scope.scores = [
             {name:'张三',chinese:45,english:30,math:120},
             {name:'李四',chinese:90,english:90,math:90},

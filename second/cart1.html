@@ -8,7 +8,12 @@
         [ng-cloak]{display: none}
     </style>
 </head>
+<!--uppercase lowercase limitTo currency json date number filter orderby-->
 <body class="container" ng-controller="cartCtrl">
+<div style="margin-top: 20px">
+    <label for="price">查询单价</label>
+    <input type="text" ng-model="query" id="price" placeholder="请输入价格" data-ng-model-options="{debounce:2000}">
+</div>
 <table class="table table-bordered table-hover" ng-cloak>
     <caption class="h2">购物车列表</caption>
     <tr class="text-warning">
@@ -19,7 +24,7 @@
         <th class="text-center">小计</th>
         <th class="text-center">操作</th>
     </tr>
-    <tr class="text-center" ng-repeat="product in products | orderBy:'price':flag track by $index">
+    <tr class="text-center" ng-repeat="product in products | orderBy:'price':flag | filter:{price:query} track by $index">
         <td ><input type="checkbox" ng-model="product.isSelected" ng-change="selectOne()"></td>
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
