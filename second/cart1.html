@@ -14,12 +14,12 @@
     <tr class="text-warning">
         <th class="text-center">全选 <input type="checkbox" ng-change="selectAll()" ng-model="selects"></th>
         <th class="text-center">商品</th>
-        <th class="text-center">单价</th>
+        <th class="text-center" ng-click="flag=!flag">单价</th>
         <th class="text-center">数量</th>
         <th class="text-center">小计</th>
         <th class="text-center">操作</th>
     </tr>
-    <tr class="text-center" ng-repeat="product in products track by $index">
+    <tr class="text-center" ng-repeat="product in products | orderBy:'price':flag track by $index">
         <td ><input type="checkbox" ng-model="product.isSelected" ng-change="selectOne()"></td>
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
@@ -28,7 +28,7 @@
             <input type="text" ng-model="product.count" ng-readonly="true">
             <button ng-click="product.count=product.count+1">+</button>
         </td>
-        <td>{{product.price*product.count}}</td>
+        <td>{{product.price*product.count | currency:'￡'}}</td>
         <td>
             <button class="btn btn-danger btn-xs"  ng-click="del(product)">删除</button>
         </td>

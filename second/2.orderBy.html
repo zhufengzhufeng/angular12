@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body ng-controller="myCtrl">
+<!--限制输入框中的数据改变的时间，延迟 失去焦点-->
+<!--ng-model-options="{updateOn:'blur'}" 失去焦点-->
+<!--ng-model-options="{debounce:500}" 延迟500毫秒-->
+搜索：<input type="text" ng-model="query" ng-model-options="{debounce:500}">
 <table class="table table-bordered">
     <tr>
         <th>姓名</th>
@@ -14,7 +18,10 @@
         <th ng-click="flag=!flag;language='math'">数学</th>
     </tr>
     <!--1.根据哪个属性排序(字符串) 2.是否倒序 true倒序-->
-    <tr ng-repeat="score in scores | orderBy:language:flag">
+    <!--2.filter过滤 第二个参数是要过滤的内容在所有数据中搜索-->
+    <!--  filter第二个参数可以限制筛选范围，增加效率 范围中写多个表示并且-->
+    <tr ng-repeat="score in scores | orderBy:language:flag | filter:{english:query,chinese:query}">
+        <!--语文要有3 英语也要3-->
         <td>{{score.name}}</td>
         <td>{{score.chinese}}</td>
         <td>{{score.english}}</td>
