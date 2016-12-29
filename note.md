@@ -27,7 +27,7 @@ help-> register -> 粘贴->activition-code
 ## 安装插件
 
 settings-> puglin -> from disk -> restart webstorm
-
+                    
 ## 配置自定义后缀文件
 
 右键文件夹-> new edit file template -> + 写上扩展名和后缀名

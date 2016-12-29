@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>
+        [ng-cloak]{display: none}
+    </style>
+</head>
+<body class="container" ng-controller="cartCtrl">
+<!--颜色
+成功绿色 success 深蓝色 primary 浅蓝色 info 警告 warning 危险danger 灰色 default
+-->
+<table class="table table-bordered table-hover" ng-cloak>
+    <caption class="h2">购物车列表</caption>
+    <tr class="text-warning">
+        <th class="text-center">全选</th>
+        <th class="text-center">商品</th>
+        <th class="text-center">单价</th>
+        <th class="text-center">数量</th>
+        <th class="text-center">小计</th>
+        <th class="text-center">操作</th>
+    </tr>
+    <tr class="text-center" ng-repeat="product in products track by $index">
+        <td ><input type="checkbox"></td>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <!--会自动将值取出绑定到input上-->
+        <td><input type="text" ng-model="product.count"></td>
+        <td>{{product.price*product.count}}</td>
+        <td><button class="btn btn-danger btn-xs">删除</button></td>
+    </tr>
+</table>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('cartCtrl',['$scope',function ($scope) {
+        $scope.products = [
+            {name:'鲳鱼',price:59,count:1,isSelected:true},
+            {name:'黄花鱼',price:69,count:2,isSelected:true},
+            {name:'多宝鱼',price:79,count:3,isSelected:true},
+        ];
+    }]);
+
+</script>
+</body>
+</html>
