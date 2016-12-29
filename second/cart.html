@@ -15,7 +15,7 @@
 <table class="table table-bordered table-hover" ng-cloak>
     <caption class="h2">购物车列表</caption>
     <tr class="text-warning">
-        <th class="text-center">全选</th>
+        <th class="text-center">全选 <input type="checkbox" ng-change="selectAll()" ng-model="selects"></th>
         <th class="text-center">商品</th>
         <th class="text-center">单价</th>
         <th class="text-center">数量</th>
@@ -27,9 +27,13 @@
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
         <!--会自动将值取出绑定到input上-->
-        <td><input type="text" ng-model="product.count"></td>
+        <td>
+            <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1?true:false">-</button>
+            <input type="text" ng-model="product.count" ng-readonly="true">
+            <button ng-click="product.count=product.count+1">+</button>
+        </td>
         <td>{{product.price*product.count}}</td>
-        <td><button class="btn btn-danger btn-xs"  ng-click="del($index)">删除</button></td>
+        <td><button class="btn btn-danger btn-xs"  ng-click="del(product)">删除</button></td>
     </tr>
 </table>
 <script src="node_modules/angular/angular.js"></script>
@@ -42,12 +46,18 @@
             {name:'多宝鱼',price:79,count:3,isSelected:true},
         ];
         //删除
-        $scope.del = function (i) {
+        $scope.del = function (product) {
+            //表示products中的某一项
             //删除tr? 双向数据绑定 删除数据dom自动刷新
-            $scope.products.splice(i,1);
+            $scope.products = $scope.products.filter(function (item,index) {
+               return item!=product;
+            });
             //删除第一项 数组会重排
-
-            //增删改查
+            //全选非全选
+        };
+        //全选 全不选
+        $scope.selectAll = function () { //checkbox只有两个值true 一个是false
+            alert($scope.selects);
         }
     }]);
 
