@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
     <style>
         [ng-cloak]{display: none}
+        .change-color{
+            background: -webkit-linear-gradient(top,purple,pink);
+        }
     </style>
 </head>
 <!--uppercase lowercase limitTo currency json date number filter orderby-->
@@ -24,8 +27,8 @@
         <th class="text-center">小计</th>
         <th class="text-center">操作</th>
     </tr>
-    <tr class="text-center" ng-repeat="product in products | orderBy:'price':flag | filter:{price:query} track by $index">
-        <td ><input type="checkbox" ng-model="product.isSelected" ng-change="selectOne()"></td>
+    <tr class="text-center" ng-repeat="product in products | orderBy:'price':flag | filter:{price:query} track by $index" ng-class="{'change-color':$even}">
+        <td><input type="checkbox" ng-model="product.isSelected" ng-change="selectOne()"></td>
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
         <td>
@@ -37,19 +40,24 @@
         <td>
             <button class="btn btn-danger btn-xs"  ng-click="del(product)">删除</button>
         </td>
+    </tr >
+    <tr ng-if="products.length">
+    <td colspan="6">
+        总价{{total()}}
+        <!--如果任意一个作用域上的值变化了就会触发函数执行-->
+        <select ng-model="opts">
+            <option ng-repeat="c in coasts" value="{{c.val}}">{{c.content}}</option>
+            <!--<option value="0.1">打一折</option>
+                <option value="0.2">打二折</option>
+                <option value="0.3">打三折</option>-->
+        </select>
+        折后价格{{total()*opts | currency:'€':1}}
+        <!--过滤器 过滤数据，不影响原数据-->
+    </td>
     </tr>
-    <tr>
+    <tr class="text-center text-danger" ng-if="!products.length">
         <td colspan="6">
-            总价{{total()}}
-            <!--如果任意一个作用域上的值变化了就会触发函数执行-->
-            <select ng-model="opts">
-                <option ng-repeat="c in coasts" value="{{c.val}}">{{c.content}}</option>
-             <!--<option value="0.1">打一折</option>
-                 <option value="0.2">打二折</option>
-                 <option value="0.3">打三折</option>-->
-            </select>
-            折后价格{{total()*opts | currency:'€':1}}
-            <!--过滤器 过滤数据，不影响原数据-->
+            暂无数据.....^_^#!!
         </td>
     </tr>
 </table>
@@ -62,6 +70,9 @@
         $scope.products = [
             {name:'鲳鱼',price:59,count:1,isSelected:true},
             {name:'黄花鱼',price:69,count:2,isSelected:true},
+            {name:'鲳鱼',price:59,count:1,isSelected:true},
+            {name:'黄花鱼',price:69,count:2,isSelected:true},
+            {name:'多宝鱼',price:79,count:3,isSelected:true},
             {name:'多宝鱼',price:79,count:3,isSelected:true},
         ];
         $scope.del = function (product) {

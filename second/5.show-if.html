@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .show{ display: block;}
+        .hide{ display: none; }
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<button ng-click="flag=!flag">点击</button>
+<div ng-if="arr.length">
+    <div ng-repeat="a in arr">{{a}}</div>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    // ng-hide/ng-show 操作css样式显示和隐藏 频繁切换的时候使用ng-show/hide
+    // ng-if是操作dom元素，控制dom删除和添加 ,如果ng-if不满足条件内部代码是不执行的。 ng-if和ng-repeat连用
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.arr = []
+    })
+</script>
+</body>
+</html>

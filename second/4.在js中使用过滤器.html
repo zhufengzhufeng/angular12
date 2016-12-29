@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="ctrl">
+<input type="text" ng-model="query">
+{{students }}
+{{aa}}
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.filter('capitalized',function () {
+        return function (data,param1,param2) {
+            return data.slice(0,param1)+data.slice(param1,param2).toUpperCase()+data.slice(param2);
+        }
+    });
+    app.controller('ctrl',['$scope','filterFilter','capitalizedFilter',function ($scope,filterFilter,capitalizedFilter) {
+        $scope.students = filterFilter([{name:1},{name:11},{name:22}],{name:1});
+        $scope.aa = capitalizedFilter('aaabbbccc',1,2);
+    }]);
+    //ng-show ng-if ng-class
+</script>
+</body>
+</html>

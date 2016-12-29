@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .green{background: greenyellow}
+        .font{font-size: 100px}
+    </style>
+</head>
+<body ng-controller="myCtrl">
+<div ng-class="{true:'green',false:''}[flag]" class="font">我是angular baby</div>
+<div ng-class="{green:flag,font:!flag}">我是angular baby</div>
+<!--如果class要 后台给我一个true 不要给false -->
+<!--ng-class不会影响自带的class样式-->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.flag =true
+    })
+</script>
+</body>
+</html>

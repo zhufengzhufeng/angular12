@@ -21,16 +21,29 @@
     </tr>
 </table>
 {{'abcedfg' | capitalize:0:3}}
-{{hello zfpx welcome | headCapital}}
+<pre>
+    {{'hello    zfpx   welcome aa-bb' | headCapital}}
+</pre>
+
 <script src="node_modules/angular/angular.min.js"></script>
 <script>
     var app = angular.module('appModule',[]);
     //自定义过滤器 创建过滤器
+    app.filter('headCapital',function (uppercaseFilter,numberFilter,filterFilter) { //在自定义过滤器中在此使用过滤器
+        return function (data) {
+            ///\b\w/ 边界+字母
+           return data.replace(/^\w|\s\w/g,function () {
+               //字母开头 | 空格+字母的
+               return uppercaseFilter(arguments[0]);
+           });
+        }
+    });
+
     app.filter('capitalize',function () {
         return function (data,param1,param2) { //data表示要过滤的数据
             return  data.slice(param1,param2).toUpperCase()+data.slice(param2);
             //返回过滤的后的结果
-        }
+        };
     });
     app.controller('myCtrl',function ($scope) {
         $scope.scores = [
