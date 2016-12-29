@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<!--value里放入的是程序看到的  option中间放置的是用户看到的-->
+<select id="select" >
+    <option value="1">苹果</option>
+    <option value="2">香蕉</option>
+    <option value="3">橘子</option>
+</select>
+<script>
+    var select = document.getElementById('select');
+    select.onchange = function () { //select的值取得是option中的value
+        alert(this.value);
+    };
+</script>
+</body>
+</html>

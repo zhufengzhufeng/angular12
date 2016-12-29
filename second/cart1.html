@@ -9,9 +9,6 @@
     </style>
 </head>
 <body class="container" ng-controller="cartCtrl">
-<!--颜色
-成功绿色 success 深蓝色 primary 浅蓝色 info 警告 warning 危险danger 灰色 default
--->
 <table class="table table-bordered table-hover" ng-cloak>
     <caption class="h2">购物车列表</caption>
     <tr class="text-warning">
@@ -26,7 +23,6 @@
         <td ><input type="checkbox" ng-model="product.isSelected" ng-change="selectOne()"></td>
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
-        <!--会自动将值取出绑定到input上-->
         <td>
             <button ng-click="product.count=product.count-1" ng-disabled="product.count<=1?true:false">-</button>
             <input type="text" ng-model="product.count" ng-readonly="true">
@@ -35,58 +31,63 @@
         <td>{{product.price*product.count}}</td>
         <td><button class="btn btn-danger btn-xs"  ng-click="del(product)">删除</button></td>
     </tr>
+    <tr>
+        <td colspan="6">
+            总价{{total()}}
+            <!--如果任意一个作用域上的值变化了就会触发函数执行-->
+            <select ng-model="opts">
+                <option ng-repeat="c in coasts" value="{{c.val}}">{{c.content}}</option>
+             <!--<option value="0.1">打一折</option>
+                 <option value="0.2">打二折</option>
+                 <option value="0.3">打三折</option>-->
+            </select>
+            折后价格{{total()*opts}}
+        </td>
+    </tr>
 </table>
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
     app.controller('cartCtrl',['$scope',function ($scope) {
+        $scope.opts = '0.3';
+        $scope.coasts = [{val:'0.3',content:'打3折'},{val:'0.4',content:'打4折'},{val:'0.5',content:'打5折'}];
         $scope.products = [
             {name:'鲳鱼',price:59,count:1,isSelected:true},
             {name:'黄花鱼',price:69,count:2,isSelected:true},
             {name:'多宝鱼',price:79,count:3,isSelected:true},
         ];
-        //删除
         $scope.del = function (product) {
-            //表示products中的某一项
-            //删除tr? 双向数据绑定 删除数据dom自动刷新
             $scope.products = $scope.products.filter(function (item,index) {
                return item!=product;
             });
-            //删除第一项 数组会重排
-            //全选非全选
         };
-        //全选 全不选
-        $scope.selectAll = function () { //checkbox只有两个值true 一个是false
+        $scope.selectAll = function () {
             $scope.products.forEach(function (item) {
                 item.isSelected = $scope.selects;
             });
         };
-        //如果有一个没选中，则不全选，给每一个点击的checkbox加一个事件
-
         $scope.selectOne = function () {
-            //默认全选
             var flag = $scope.products.find(function (item) {
-                return !item.isSelected;//返回true则找到了findOne
+                return !item.isSelected;
             });
-            //如果有值 表示找到了为false的,则为不全选
-            //$scope.selects = flag? true:false;
             if(flag){
                 $scope.selects = false;
             }else{
-                $scope.selects = true
+                $scope.selects = true;
             }
-
-           /* var flag = true;
+        };
+        $scope.selectOne();
+        $scope.total = function () {
+            var sum = 0;
+            console.log(1);
             $scope.products.forEach(function (item) {
-                if(!item.isSelected){
-                    flag  = false;
+                if(item.isSelected){
+                    sum+=item.price*item.count;
                 }
             });
-            $scope.selects = flag;*/
+            return sum;
         }
-        $scope.selectOne();
     }]);
-
 </script>
 </body>
 </html>
