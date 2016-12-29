@@ -23,7 +23,7 @@
         <th class="text-center">操作</th>
     </tr>
     <tr class="text-center" ng-repeat="product in products track by $index">
-        <td ><input type="checkbox" ng-model="product.isSelected"></td>
+        <td ><input type="checkbox" ng-model="product.isSelected" ng-change="selectOne()"></td>
         <td>{{product.name}}</td>
         <td>{{product.price}}</td>
         <!--会自动将值取出绑定到input上-->
@@ -57,8 +57,11 @@
         };
         //全选 全不选
         $scope.selectAll = function () { //checkbox只有两个值true 一个是false
-            alert($scope.selects);
-        }
+            $scope.products.forEach(function (item) {
+                item.isSelected = $scope.selects;
+            });
+        };
+        //如果有一个没选中，则不全选，给每一个点击的checkbox加一个事件
     }]);
 
 </script>
