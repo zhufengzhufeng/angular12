@@ -62,6 +62,27 @@
             });
         };
         //如果有一个没选中，则不全选，给每一个点击的checkbox加一个事件
+        $scope.selectOne = function () {
+            //默认全选
+            var flag = $scope.products.find(function (item) {
+                return !item.isSelected;//返回true则找到了findOne
+            });
+            //如果有值 表示找到了为false的,则为不全选
+            //$scope.selects = flag? true:false;
+            if(flag){
+                $scope.selects = false;
+            }else{
+                $scope.selects = true
+            }
+
+           /* var flag = true;
+            $scope.products.forEach(function (item) {
+                if(!item.isSelected){
+                    flag  = false;
+                }
+            });
+            $scope.selects = flag;*/
+        }
     }]);
 
 </script>
