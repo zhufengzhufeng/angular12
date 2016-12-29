@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-init="name={name:'zfpx',age:8,address:'回龙观'}">
+<!--内置过滤器9种   自定义过滤器-->
+<!--过滤器不依赖于控制器-->
+<!--1.currency货币过滤器 | 管道符 参数用：传递 可以传多个参数-->
+{{'111' | currency:'美元'}} <br>
+<!--可以转换成数字才可以使用货币过滤器-->
+<!--2.大小写过滤器-->
+{{'abcdefJSAF' | uppercase}} <br>
+{{'abcdefJSAF' | lowercase}} <br>
+<!--3.日期过滤器-->
+{{1482995886958 | date:'yyyy年MM月dd日 hh-mm-ss'}} <br>
+<!--4.限制位数过滤器-->
+{{'你好我是帅哥' | limitTo:4}} <br>
+<!--5.数字过滤器-->
+{{100000000.222 | number:2}}
+<!--6.json过滤器-->
+<pre>{{name | json:4}}</pre>
+<!--过滤器链式写法 多个过滤器用| 隔开-->
+{{'aaaJJJbbb' | uppercase | lowercase | limitTo:3}}
+<!--7.排序 orderBy-->
+
+<script src="node_modules/angular/angular.min.js"></script>
+</body>
+</html>
