@@ -21,6 +21,7 @@
     </tr>
     <tr ng-repeat="score in scores">
         <td >{{score.name}}</td>
+        <!--ng-bind-html绑定html元素-->
         <td ng-bind-html="score.chinese | trustHtml"></td>
         <td ng-bind-html="score.english | trustHtml"></td>
         <td ng-bind-html="score.math | trustHtml"></td>
@@ -29,7 +30,7 @@
 <script src="node_modules/angular/angular.min.js"></script>
 <script>
     var app = angular.module('appModule',[]);
-    app.filter('trustHtml', function ($sce) {
+    app.filter('trustHtml', function ($sce) { // 过滤数据，不能修改会造成数据变化导致视图刷新重复调用过滤器 出现死循环
         return function (input) {
             return $sce.trustAsHtml(input);
         }
@@ -42,9 +43,11 @@
             {name:'王五',chinese:'93',english:'61',math:'88'},
             {name:'赵六',chinese:'63',english:'66',math:'99'},
         ];
+        //保留源值 ，保存原有数据
         $scope.arrs = JSON.parse(JSON.stringify($scope.scores));
-        $scope.$watch('query',function (newVal) {
+        $scope.$watch('query',function (newVal) { //做一次监控
             $scope.scores = JSON.parse(JSON.stringify($scope.arrs));
+            //每次清空原有变化
             if(newVal){
                 $scope.scores.forEach(function (item) {
                     if(item[$scope.language].toString().includes(newVal)){
