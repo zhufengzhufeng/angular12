@@ -98,7 +98,6 @@
         $scope.selectOne();
         $scope.total = function () {
             var sum = 0;
-            console.log(1);
             $scope.products.forEach(function (item) {
                 if(item.isSelected){
                     sum+=item.price*item.count;
