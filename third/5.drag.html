@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+    <style>
+        div{position: absolute;top: 0;left: 0;width: 100px;height: 100px;background: red}
+        div+div{background: blue}
+        div+div+div{background: yellow}
+         /*div:nth-child(2){
+              background: blue;
+              width: 100px;height: 100px;
+         }*/
+    </style>
+</head>
+<body>
+<span></span>
+<div drag></div>
+<!--<div drag></div>
+<div drag></div>-->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+   var app = angular.module('appModule',[]);
+    app.directive('drag',function () {
+        return {
+            restrict:'A',
+            link:function (scope,element,attrs) {
+                element.on('mousedown',function (e) {
+                    //求鼠标距离盒子的距离
+                    var disX = e.pageX - this.offsetLeft;
+                    var disY = e.pageY - this.offsetTop;
+                    angular.element(document).on('mousemove',function (e) {
+                        //需要加单位   盒子距离浏览器的距离
+                        var left = e.pageX - disX+'px';
+                        var top = e.pageY - disY+'px';
+                        element.css({left,top});
+                    });
+                    //每次按下后重新绑定鼠标抬起事件
+                    angular.element(document).on('mouseup',function () {
+                        angular.element(document).off('mousemove');
+                        angular.element(document).off('mouseup');
+                    });
+                    e.preventDefault();
+                });
+
+            }   
+        }
+    })
+</script>
+</body>
+</html>
