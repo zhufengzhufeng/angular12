@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body ng-controller="myCtrl">
+<input type="text" ng-model="query">
+<ul class="list-group">
+    <li class="list-group-item" ng-repeat="stu in students">
+        {{stu.name}}
+        <div ng-bind-html="stu.chinese | search:query | trustAsHtml"></div>
+    </li>
+</ul>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.filter('trustAsHtml',function ($sce) {
+        return function (data) {
+            return $sce.trustAsHtml(data);
+        }
+    });
+    app.filter('search',function () { //过滤器的名字
+        return function (data,param1) { //要过滤的数据 和：后面传递的参数
+            if(!param1) return data;//如果搜索框内无数据正常返回即可
+            return data.replace(new RegExp(param1,'g'),function () {
+                return '<font color="red">'+arguments[0]+'</font>'
+            });
+        }
+    });
+    app.controller('myCtrl',function ($scope) {
+        $scope.students = [
+            {name:'张三',chinese:'100'},
+            {name:'李四',chinese:'43'},
+            {name:'王五',chinese:'99'},
+            {name:'赵六',chinese:'80'},
+            {name:'珠七',chinese:'55'},
+        ]
+    })
+</script>
+</body>
+</html>
