@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="myCtrl">
+<input type="text" ng-model="aa">
+<text title="aa" s="say(m,q)"></text>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.aa = 100;
+        $scope.say = function (who,where) {
+            alert(who);
+            alert(where)
+        }
+    });
+    app.directive('text',function () {
+        return {
+            restrict:'E',
+            template:`<div>
+                           <h1>{{aa}}</h1>
+                           <input type="text" ng-model="aa">
+                           <button ng-click="q({m:'aa',q:aa})">点我</button>
+                      </div>
+                     `,
+            scope:{
+              //  aa:'@title' //属性对应的字符串  单向
+                  aa:'=title', //属性对应的变量  里面的声明的aa和scope上aa是同一个  双向
+                  q:'&s' //专门引用函数的
+            }
+        }
+    })
+</script>
+</body>
+</html>
