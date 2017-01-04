@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="myCtrl">
+<input type="text" ng-model="aa">
+<text title="{{aa}}"></text>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('myCtrl',function ($scope) {
+        $scope.aa = 100;
+    });
+    app.directive('text',function () {
+        return {
+            restrict:'E',
+            template:'<h1>{{aa}} <input type="text" ng-model="aa"></h1>',
+            /*link:function ($scope,element,attrs) {
+                $scope.aa = attrs.title;
+            },*/
+            scope:{
+                aa:'@title' //取属性上title值(字符串)，将值挂载在作用域aa属性上
+                //当前声明的变量 和 属性上变量名相同则可以简写 aa:'@'
+            }
+        }
+    })
+</script>
+</body>
+</html>
