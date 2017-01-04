@@ -11,3 +11,14 @@
 赋予标签一些功能
 - 组件式 component， 标签
 能将当前标签替换成一个具体的功能
+
+
+## fandoc
+```
+npm install fandoc -g
+```
+```
+fandoc init
+fandoc build 
+fandoc server
+```
