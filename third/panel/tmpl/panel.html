@@ -1,7 +1,12 @@
 <div class="container">
     <div class="panel panel-info">
-        <div class="panel-heading"></div>
+        <div class="panel-heading">{{tit}}</div>
         <div class="panel-body"><span ng-transclude></span>内容1</div>
-        <div class="panel-footer"></div>
+        <div class="panel-footer">
+            {{author}}
+            <button class="btn btn-info pull-right btn-xs" ng-click="say({t:tit})" ng-if="flag=='true'">
+                点我说标题
+            </button>
+        </div>
     </div>
 </div>

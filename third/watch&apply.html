@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body ng-controller="myCtrl">
+<!--<input type="text" ng-model="aa">-->
+{{aa}}
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //watch
+    app.controller('myCtrl',function ($scope,$timeout) {
+        $scope.aa = 100;
+        //angular是不识别（在原生代码中改变了数据是不会影响视图刷新的）原生js
+        setTimeout(function () {
+            $scope.aa = 200;
+            $scope.$apply();
+            //通知数据已经改变了 你刷新视图吧
+        },1000);
+        //监控谁的变化 数据
+        $scope.$watch('aa',function (newVal,oldVal) {
+            console.log(newVal,oldVal);
+        });
+        //满百包邮
+    })
+</script>
+</body>
+</html>

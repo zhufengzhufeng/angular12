@@ -5,21 +5,33 @@
     <title>珠峰培训http://www.zhufengpeixun.cn</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
-<body>
-<panel>精通angularjs</panel>
-<panel>静态react</panel>
+<body ng-controller="myCtrl">
+<panel title="{{title1}}" author="author1" say="say(t)" flag="true">精通vue</panel>
+<panel title="{{title2}}" author="author2" say="say(t)" flag="false">静态react</panel>
+
 <script src="../node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
     app.controller('myCtrl',function ($scope) {
         $scope.title1 = '标题1';
         $scope.title2 = '标题2';
+        $scope.author1 = '作者1';
+        $scope.author2 = '作者2';
+        $scope.say = function (tit) {
+            alert(tit)
+        };
         //@符号
     });
     app.directive('panel',function () {
         return {
             templateUrl:'tmpl/panel.html',
             transclude:true,
+            scope:{
+                tit:'@title', //字符串
+                author:'=',//变量
+                say:'&',
+                flag:'@'
+            }
         }
     });
 </script>

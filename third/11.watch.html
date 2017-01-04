@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-controller="ctrl">
+商品名称 {{product.name}}; <br>
+商品价格 {{product.price}}; <br>
+商品数量 <input type="text" ng-model="product.count"> <br>
+邮费 {{product.express}}; <br>
+总价 {{total()+product.express}}
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl',function ($scope) {
+        $scope.product = {name:'飞机',price:15,count:1,express:10}
+        $scope.total = function () {
+            return $scope.product.price * $scope.product.count;
+        };
+        console.log($scope);
+        //total的值发生变化 会执行 对应的回调函数
+        $scope.$watch($scope.total,function (newVal,oldVal) {
+            $scope.product.express = newVal>=100?0:10;
+        });
+        //$$watchers 里面放着所有数据，如果其中有一个数据发生变化，angular就会扫描这个数组，刷新视图 angular2中采用worker。脏值检查
+        //$apply通知视图刷新页面的
+        //$timeout - $interval  服务
+        //ng-model（watch+apply）
+    });
+</script>
+</body>
+</html>

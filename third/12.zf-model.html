@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<input type="text" zf-model="cc">
+{{cc}}
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.run(function ($rootScope) {
+        $rootScope.cc =500
+    });
+    app.directive('zfModel',function () {
+        return {
+            restrict:'A',
+            //监控输入框中的值的变化，值改变了将新值放到scope上
+            link:function (scope,element,attrs) {
+                //视图->数据
+                element.on('input',function () {
+                    scope[attrs['zfModel']] = this.value;
+                    scope.$apply();//原生js改变数据后，要通知视图刷新
+                });
+                //数据->视图
+                //数据变化后印象视图的改变，监控$watch数据的变化给input赋值
+            }
+        }
+    })
+</script>
+</body>
+</html>
