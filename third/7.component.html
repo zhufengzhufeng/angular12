@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<panel title="标题1">这是内容1</panel>
+<panel title="标题2">这是内容2</panel>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.directive('panel',function () {
+        return {
+            restrict:'E',
+            replace:true,
+            transclude:true,//内嵌，扔到模板中带有ng-transclude属性上,会创建一个作用域
+            link:function (scope,element,attrs) {
+                scope.title = attrs.title;
+            },
+            scope:{},//创建私有作用域 true/{}
+            template:`
+                <div class="panel panel-primary">
+                    <div class="panel-heading">{{title}}</div>
+                    <div class="panel-body" ng-transclude></div>
+                    <div class="panel-footer"></div>
+                </div>
+            `
+        }
+    })
+</script>
+</body>
+</html>
