@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<div panel aa="1" bb="2">123</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //指令默认不会创建作用域
+    app.directive('panel',function () {
+        return {
+            restrict:'A',
+            link:function (scope,element,attrs) { //链接函数 连接视图和作用域的
+                //scope当前指令所在的作用域
+                //element 元素 指令所在的元素 jq对象(轻量的jq)
+                element.css('border','1px solid red');
+                /*angular.element(document).on('click',function () {
+                 alert(1)
+                });*/
+                //attrs 当前指令所在元素的所有属性
+                console.log(attrs); //可以获取元素上的所有属性
+            }
+        }
+    });
+</script>
+</body>
+</html>

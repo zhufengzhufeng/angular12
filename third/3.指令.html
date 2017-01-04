@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<!--attribute A-->
+<div zf-border></div>
+<!--element E-->
+<zf-border></zf-border>
+<!--class C-->
+<div class="zf-border"></div>
+<!--comment M-->
+<!-- directive:zf-border -->
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //指令不依赖于控制器
+    //指令的名字，必须采用驼峰命名法
+    var app = angular.module('appModule',[]);
+    app.directive('zfBorder',function () {
+        return {
+            restrict:'ACME',
+            replace:true,//外界的原有的标签不要了
+            template:`<div>
+                        <h1>hello zfpx</h1>
+                      </div>`
+        };
+    })
+</script>
+</body>
+</html>
