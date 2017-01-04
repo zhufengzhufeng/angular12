@@ -6,12 +6,16 @@
 </head>
 <body>
 <input type="text" zf-model="cc">
+<input type="text" zf-model="vv">
 {{cc}}
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
-    app.run(function ($rootScope) {
-        $rootScope.cc =500
+    app.run(function ($rootScope,$timeout) {
+        $rootScope.cc =500;
+        $timeout(function () {
+            $rootScope.cc =200;
+        },2000)
     });
     app.directive('zfModel',function () {
         return {
@@ -25,6 +29,9 @@
                 });
                 //数据->视图
                 //数据变化后印象视图的改变，监控$watch数据的变化给input赋值
+                scope.$watch(attrs['zfModel'],function (newVal) {
+                    element[0].value = newVal;
+                });
             }
         }
     })

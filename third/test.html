@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div ng-controller="ctrl">
+    <slider s="aa" timer="4000" flag="true"></slider>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl',function ($scope) {
+        $scope.aa = [1,2,3,4];
+        $scope.aa1 = [1,2,1];
+    });
+    app.directive('slider',function () {
+        return {
+            //链接函数
+            link:function (scope,element,attrs) {
+                console.log(scope.ss);
+            },
+            template:`<div><ul><li ng-repeat="s in ss track by $index"></li></ul></div>`,
+            scope:{
+                ss:'=s'
+            }
+            //强约束
+        }
+    });
+</script>
+</body>
+</html>
