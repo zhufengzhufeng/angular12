@@ -9,7 +9,7 @@
 <div class="container" ng-controller="searchCtrl">
 <input type="text" ng-model="query" class="form-control" style="margin-top: 40px" ng-keyup="search($event)">
 <ul class="list-group">
-    <li class="list-group-item" ng-repeat="a in arrs" ng-class="{active:$index==index}">{{a}}</li>
+    <li class="list-group-item" ng-repeat="(key,a) in arrs" ng-class="{active:key==index}" >{{a}}</li>
 </ul>
 </div>
 <script src="node_modules/angular/angular.js"></script>
@@ -18,7 +18,8 @@
     app.controller('searchCtrl',function ($scope,$http,$sce) {
         $scope.arrs = [];
         $scope.index = -1;
-        //键盘事件抬起时 请求数据
+        //键盘事件抬起时 请求数据]
+        var timer = '';
         $scope.search = function (e) {
             var keyCode = e.keyCode;
             if(keyCode==38 || keyCode==40){
@@ -35,16 +36,22 @@
                     }
                     $scope.index++;
                 }
-                console.log($scope.index);
+                //通过索引取对应数组的某一项，将值赋予给query属性
+                $scope.query = $scope.arrs[$scope.index];
+                clearTimeout(timer); //每次按上下键时 清空定时器
+                timer = setTimeout(function () { //不动的时候等三秒 打开新页面
+                    window.location.href = 'https://www.baidu.com/s?wd='+$scope.query
+                },3000);
                 return false;
             }
             //仅限于1.6.0版本以上
             $http.jsonp($sce.trustAsResourceUrl('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+$scope.query),{jsonpCallbackParam:'cb'}).then(function (res) {
                 $scope.arrs = res.data.s;
+            },function (err) {
+                console.log(err);
             });
+
         }
-    },function (err) {
-        console.log(err);
     })
 </script>
 
