@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<!--angular中 有五种服务
+"provider" "factory"  service value  constant
+服务是什么 angular给我们提供的
+自带的服务 $http $timeout $sce  ， 自定义的服务
+服务是单例的，把公有方法，放到服务中
+-->
+<div ng-controller="OneCtrl"></div>
+<div ng-controller="TwoCtrl"></div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //单例，第一次调用时将其new出来放到缓存中，下次再使用将缓存中的直接返回给我们
+    //1.自定义服务
+    app.config(function ($calcProvider) {//只有provider可以进行配置
+        //先执行provider，将实例放到$calcProvider
+        $calcProvider.currency = '%';//$calcProvider是$calc的构造函数的实例
+    });
+    app.provider('$calc',function () {
+       //此构造函数，直接会被实例化
+        this.currency = '$';
+        this.$get = function () {
+            var that = this;
+            return {
+                '+':function (a,b) {return that.currency+(a+b);},
+                '-':function (a,b) {return that.currency+(a-b); }
+            }
+        }
+    });
+    //会自动调用$get方法 $calc代表的是$get的返回结果
+    app.controller('OneCtrl',function ($scope,$calc) {
+        $scope.a = 1;
+        $scope.b =2;
+        console.log($calc["+"]($scope.a,$scope.b));
+        //如果将所有内容挂载在全局作用域上会导致污染全局作用域
+        //$rootScope可以实现共享数据 通过服务抽取公有的方法
+    });
+    app.controller('TwoCtrl',function ($scope,$calc) {
+        $scope.a = 4;
+        $scope.b = 5;
+        console.log($calc["-"]($scope.a,$scope.b));
+    });
+</script>
+</body>
+</html>

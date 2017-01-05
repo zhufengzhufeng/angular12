@@ -50,7 +50,7 @@
                     $scope.query = $scope.arrs[$scope.index];
                 }
                 clearTimeout(timer); //每次按上下键时 清空定时器
-               /* timer = setTimeout(function () { //不动的时候等三秒 打开新页面
+                /*timer = setTimeout(function () { //不动的时候等三秒 打开新页面
                     window.location.href = 'https://www.baidu.com/s?wd='+$scope.query
                 },3000);*/
                 return false;
@@ -62,7 +62,6 @@
             },function (err) {
                 console.log(err);
             });
-
         }
     })
 </script>
