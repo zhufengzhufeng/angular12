@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<script src="node_modules/angular/angular.js"></script>
+<!--使用angular验证要先关闭自身验证
+验证表单 name ng-model
+-->
+
+<form class="form-horizontal container" style="margin-top: 40px" novalidate="novalidate" name="myForm">
+    <div class="form-group">
+        <label for="email" class="control-label col-md-2">
+            邮箱
+        </label>
+        <div class="col-md-10">
+            <input type="email" name="email" id="email" class="form-control" ng-model="email" autocomplete="off" ng-required="true">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username" class="control-label col-md-2">
+            用户名
+        </label>
+        <div class="col-md-10">
+            <input type="text" name="username" id="username" class="form-control" ng-model="username"  ng-required="true" ng-minlength="6" ng-maxlength="10" ng-pattern="/^\d+$/">
+        </div>
+    </div>
+    <div class="alert alert-danger" ng-show="myForm.username.$error.pattern">正则不通过</div>
+    <div class="alert alert-danger" ng-show="myForm.username.$error.minlength||myForm.username.$error.maxlength">用户名不合法</div>
+    <div class="alert alert-danger" ng-show="myForm.username.$error.required&&myForm.username.$dirty">用户必填</div>
+    <div class="alert alert-danger" ng-show="myForm.email.$error.email">邮箱不正确</div>
+    <div class="alert alert-danger" ng-show="myForm.email.$error.required&&myForm.email.$dirty">邮箱必填</div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-success btn-lg" ng-disabled="myForm.$invalid||myForm.$pristine">提交</button>
+        </div>
+    </div>
+</form>
+<pre>{{myForm | json}}</pre>
+</body>
+</html>
