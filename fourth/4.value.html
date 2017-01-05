@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+
+<div ng-controller="OneCtrl"></div>
+<div ng-controller="TwoCtrl"></div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    //调用的是factory
+    //value会将传入的对象，进行函数的包装传递给factory
+    app.value('$calc',{ //constant和value一样 constant不算服务，但是可以配置，配置时不需要增加Provider
+        '+':function (a,b) {return a+b},
+        '-':function (a,b) {return a-b}
+    });
+    //service后面的函数是factory返回值的构造函数
+    app.controller('OneCtrl',function ($scope,$calc) {
+        $scope.a = 1;
+        $scope.b =2;
+        console.log($calc["+"]($scope.a,$scope.b));
+    });
+    app.controller('TwoCtrl',function ($scope,$calc) {
+        $scope.a = 4;
+        $scope.b = 5;
+        console.log($calc["-"]($scope.a,$scope.b));
+    });
+</script>
+</body>
+</html>

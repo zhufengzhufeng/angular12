@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+
+<div ng-controller="OneCtrl"></div>
+<div ng-controller="TwoCtrl"></div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    //provider要求有$get方法，并且可以配置，其他都不可配置
+    //factory 默认就是$get方法，
+    //service 是$get函数的返回值的构造函数
+    var app = angular.module('appModule',[]);
+    /*app.service('$calc',function () {
+       this['+'] =function (a,b) {return a+b};
+       this['-'] =function (a,b) {return a-b};
+    });*/
+    //service后面的函数是factory返回值的构造函数
+    app.controller('OneCtrl',function ($scope,$calc) {
+        $scope.a = 1;
+        $scope.b =2;
+        console.log($calc["+"]($scope.a,$scope.b));
+    });
+    app.controller('TwoCtrl',function ($scope,$calc) {
+        $scope.a = 4;
+        $scope.b = 5;
+        console.log($calc["-"]($scope.a,$scope.b));
+    });
+</script>
+</body>
+</html>

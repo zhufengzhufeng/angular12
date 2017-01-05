@@ -22,14 +22,16 @@
         //先执行provider，将实例放到$calcProvider
         $calcProvider.currency = '%';//$calcProvider是$calc的构造函数的实例
     });
+    //执行顺序先走new provider -> config - > $get
     app.provider('$calc',function () {
        //此构造函数，直接会被实例化
         this.currency = '$';
         this.$get = function () {
-            var that = this;
+            //var that = this;
             return {
-                '+':function (a,b) {return that.currency+(a+b);},
-                '-':function (a,b) {return that.currency+(a-b); }
+                //箭头函数内部没有this指向，从而解决this关键字的问题
+                '+':(a,b)=>this.currency+(a+b),
+                '-':(a,b)=>{return this.currency+(a-b);}
             }
         }
     });

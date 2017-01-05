@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+
+<div ng-controller="OneCtrl"></div>
+<div ng-controller="TwoCtrl"></div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.config(function ($calcProvider) {
+        $calcProvider.currency = '&';
+    });
+    //config -> factory
+    app.factory('$calc',function () { //此函数是$get函数
+        this.currency = '$';
+        return {
+            //箭头函数内部没有this指向，从而解决this关键字的问题
+            '+':(a,b)=>this.currency+(a+b),
+            '-':(a,b)=>{return this.currency+(a-b);}
+        }
+    });
+    app.controller('OneCtrl',function ($scope,$calc) {
+        $scope.a = 1;
+        $scope.b =2;
+        console.log($calc["+"]($scope.a,$scope.b));
+    });
+    app.controller('TwoCtrl',function ($scope,$calc) {
+        $scope.a = 4;
+        $scope.b = 5;
+        console.log($calc["-"]($scope.a,$scope.b));
+    });
+</script>
+</body>
+</html>
