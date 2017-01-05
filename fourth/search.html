@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head >
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+<div class="container" ng-controller="searchCtrl">
+<input type="text" ng-model="query" class="form-control" style="margin-top: 40px" ng-keyup="search()">
+<ul class="list-group">
+    <li class="list-group-item" ng-repeat="a in arrs">{{a}}</li>
+</ul>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script >
+    var app = angular.module('appModule',[]);
+    app.controller('searchCtrl',function ($scope,$http,$sce) {
+        $scope.arrs = [];
+        //键盘事件抬起时 请求数据
+        $scope.search = function () {
+            //仅限于1.6.0版本以上
+            $http.jsonp($sce.trustAsResourceUrl('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+$scope.query),{jsonpCallbackParam:'cb'}).then(function (res) {
+                $scope.arrs = res.data.s;
+            })
+        }
+    },function (err) {
+        console.log(err);
+    })
+</script>
+
+</body>
+</html>
