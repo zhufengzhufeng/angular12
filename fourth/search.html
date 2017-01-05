@@ -7,7 +7,7 @@
 </head>
 <body>
 <div class="container" ng-controller="searchCtrl">
-<input type="text" ng-model="query" class="form-control" style="margin-top: 40px" ng-keyup="search($event)">
+<input type="text" ng-model="query" class="form-control" style="margin-top: 40px" ng-keyup="search($event)" ng-keydown="down($event)">
 <ul class="list-group">
     <li class="list-group-item" ng-repeat="(key,a) in arrs" ng-class="{active:key==index}" >{{a}}</li>
 </ul>
@@ -20,6 +20,13 @@
         $scope.index = -1;
         //键盘事件抬起时 请求数据]
         var timer = '';
+        $scope.rember = ''; //用来记住值得变化
+        $scope.down = function (e) {
+            var keyCode = e.keyCode;
+            if(keyCode==38||keyCode==40){
+                e.preventDefault();
+            }
+        };
         $scope.search = function (e) {
             var keyCode = e.keyCode;
             if(keyCode==38 || keyCode==40){
@@ -37,15 +44,20 @@
                     $scope.index++;
                 }
                 //通过索引取对应数组的某一项，将值赋予给query属性
-                $scope.query = $scope.arrs[$scope.index];
+                if(!$scope.arrs[$scope.index]){
+                    $scope.query = $scope.rember;
+                }else{
+                    $scope.query = $scope.arrs[$scope.index];
+                }
                 clearTimeout(timer); //每次按上下键时 清空定时器
-                timer = setTimeout(function () { //不动的时候等三秒 打开新页面
+               /* timer = setTimeout(function () { //不动的时候等三秒 打开新页面
                     window.location.href = 'https://www.baidu.com/s?wd='+$scope.query
-                },3000);
+                },3000);*/
                 return false;
             }
             //仅限于1.6.0版本以上
             $http.jsonp($sce.trustAsResourceUrl('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+$scope.query),{jsonpCallbackParam:'cb'}).then(function (res) {
+                $scope.rember = $scope.query; //发送一次请求后记住值
                 $scope.arrs = res.data.s;
             },function (err) {
                 console.log(err);
