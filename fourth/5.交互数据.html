@@ -7,14 +7,15 @@
 <body>
 <!--$rootScope provider 事件（用于控制器间的交互）-->
 <div ng-controller="parentCtrl">
-    总价<input type="text" ng-model="total">
+    总价<input type="text" ng-model="total" ng-change="changeTotal()">
     <div ng-controller="childCtrl">
         商品的名称 {{product.name}} <br>
-        价格 {{product.price}}<br>
+        价格 {{product.price | currency:'￥'}}<br>
         数量 <input type="text" ng-model="product.count"><br>
     </div>
 </div>
 <!--爸爸告诉儿子$broadcast 向下传递 儿子告诉爸爸$emit 向上传递  接收传递$on-->
+<!--路由切换的原理-->
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app = angular.module('appModule',[]);
@@ -22,13 +23,21 @@
         //父级计算总价
         $scope.total = 10;
         $scope.$on('客人来了要玩具',function (e,data) {
-            alert(data)
+            $scope.total = data;
         });
+        $scope.changeTotal = function () {
+            $scope.$broadcast('总价',$scope.total);
+        }
     });
     app.controller('childCtrl',function ($scope) {
         //儿子改数量
-        $scope.product = {name:'玩具',count:2,price:10}
-        $scope.$emit('客人来了要玩具', $scope.product.count);
+        $scope.product = {name:'玩具',count:2,price:10};
+        $scope.$on('总价',function (e,data) {
+            $scope.product.count = data/$scope.product.price;
+        });
+        $scope.$watch('product.count',function () {
+            $scope.$emit('客人来了要玩具', $scope.product.count*$scope.product.price);
+        }); //true表示对对象中的变量进行深度检查
     });
 </script>
 </body>
