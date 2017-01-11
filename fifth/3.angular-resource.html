@@ -5,30 +5,41 @@
     <title>珠峰培训http://www.zhufengpeixun.cn</title>
 </head>
 <body ng-controller="myCtrl">
+<table>
+    <tr>
+        <td>用户名</td>
+        <td>年龄</td>
+        <td>操作</td>
+    </tr>
+    <tr ng-repeat="user in users">
+        <td>{{user.name}}</td>
+        <td>{{user.age}}</td>
+        <td><button>删除</button><button>修改</button></td>
+    </tr>
+</table>
 <script src="node_modules/angular/angular.js"></script>
 <script src="node_modules/angular-resource/angular-resource.js"></script>
 <script>
     var app = angular.module('appModule',['ngResource']);
     //把某一个功能提取出来
     app.factory('$book',function ($resource) {
-        //请求的路径
+        //请求的路径 $resouce执行后拥有很多的方法 get query save update delete
         return $resource('/users/:id',null,{
             update:{
                 method:'PUT'
             }
-        }); //$resouce执行后拥有很多的方法 get query save update delete
+        });
     });
     app.controller('myCtrl',function ($scope,$http,$book) {
-        //$book.get({id:1});            /user/1 get
-        //$book.query();                /user get
-        //$book.save({name:1})          /user 请求体 post
-        //$book.update({id:1},{name:1}) /user/1请求体 put
-        //$book.delete({id:1})          /user/1 delete
-        //$book.delete()                /user delete
-        $book.get({id:1})
+        $scope.users = $book.query();
     });
 
-
+    //$book.get({id:1});            /user/1 get      是对象类型 返回查找的一项
+    //$book.query();                /user get        返回全部  数组
+    //$book.save({name:1})          /user 请求体 post 返回保存的那一项
+    //$book.update({id:1},{name:1}) /user/1请求体 put 返回修改的那一项
+    //$book.delete({id:1})          /user/1 delete   返回一个{}对象
+    //$book.delete()                /user delete
 
     //restFul风格  根据http的四个动词 操作数据 get post put delete
     //  /user   get 获取所有用户

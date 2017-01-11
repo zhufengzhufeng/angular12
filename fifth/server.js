@@ -2,6 +2,7 @@ var http = require('http');//创建服务
 var fs = require('fs');//fileSystem操作文件
 var url = require('url');//解析url
 var mime = require('mime');//content-type
+
 http.createServer(function (req,res) {
     //后台路由
     console.log(req.url); //不包括主机，路径+查询参数
