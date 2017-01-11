@@ -21,7 +21,7 @@
     <tr ng-repeat="user in users" ng-cloak>
         <td>{{user.name}}</td>
         <td>{{user.age}}</td>
-        <td><button class="btn btn-danger" ng-click="remove(user)">删除</button>  <button class="btn btn-warning" data-toggle="modal" data-target=".modal">修改</button></td>
+        <td><button class="btn btn-danger" ng-click="remove(user)">删除</button>  <button class="btn btn-warning" data-toggle="modal" data-target=".modal" ng-click="update(user)">修改</button></td>
     </tr>
 </table>
 
@@ -35,7 +35,7 @@
                 <h4 class="modal-title">修改内容</h4>
             </div>
             <div class="modal-body">
-                用户名:<input type="text">年龄<input type="text">
+                用户名:<input type="text" ng-model="user.name">年龄<input type="text" ng-model="user.age">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -64,6 +64,10 @@
     });
     app.controller('myCtrl',function ($scope,$http,$book) {
         $scope.users = $book.query();
+        $scope.update = function (u) {
+            //克隆一个对象
+            $scope.user = JSON.parse(JSON.stringify(u));
+        };
         $scope.remove = function (u) {
             //可以直接传入u,
             $book.delete({id:u.id}).$promise.then(function () {
