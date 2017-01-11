@@ -22,8 +22,6 @@ http.createServer(function (req,res) {
             case 'DELETE':
                 break;
         }
-
-
     }else{
         fs.exists('.'+pathname,function (flag) {
             if(flag){
