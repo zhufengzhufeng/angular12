@@ -14,8 +14,8 @@ http.createServer(function (req,res) {
         //获取前端传递的cb的名字 返回一个cb(数据)
         var callback = urlObj.query.callback;
         //cb(JSON.stringify({a:1}));
-        var data = JSON.stringify({name:1});
-        res.end(`${callback}(${data})`);
+        var data = JSON.stringify({name:'你好'});
+        res.end(`${callback}(${data})`);//string or buffer
     }else{
         fs.exists('.'+pathname,function (flag) {
             if(flag){
