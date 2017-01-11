@@ -36,6 +36,13 @@ http.createServer(function (req,res) {
             case 'PUT':
                 break;
             case 'DELETE':
+                if(id){  // /100
+                    var uid = id.slice(1);
+                    usersList = usersList.filter(function (item) {
+                        return uid!=item.id;
+                    });
+                    res.end(JSON.stringify({}));
+                }
                 break;
         }
     }else{
