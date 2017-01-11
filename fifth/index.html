@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body>
+<!--jsonp 只能是GET请求，利用了script可以跨域访问，(img css?) 请求时会自动转换成图片-->
+
+<script>
+//动态创建script标签
+var script = document.createElement('script');
+function cb(data) { //全局的方法
+    console.log(data);
+}
+script.src = 'http://localhost:3333/jsonp?callback=cb'; //增加执行的callback
+document.body.appendChild(script);
+</script>
+
+</body>
+</html>

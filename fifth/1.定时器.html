@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body >
+<button ng-click="flag=false"></button>
+<div ng-controller="myCtrl" ng-if="flag">
+    {{date | date:'yyyy-MM-dd hh:mm:ss'}}
+    <button ng-click="stop()">时间静止</button>
+</div>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.run(function ($rootScope) {
+        $rootScope.flag = true;
+    });
+    app.controller('myCtrl',function ($scope,$interval) {
+        $scope.date = new Date();
+        var timer = $interval(function () { //不会通知视图刷新
+            $scope.date = new Date();
+        },1000);
+        $scope.stop = function () {
+            $interval.cancel(timer);
+        };
+        //作用销毁事件，根据dom删除dom则销毁作用域
+        $scope.$on('$destroy',function () {
+            console.log('销毁');
+            $interval.cancel(timer);
+        });
+        //$destroy是作用域销毁事件
+        //.cancel 用来清除定时器
+    });
+</script>
+</body>
+</html>
