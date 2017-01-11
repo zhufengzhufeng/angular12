@@ -9,27 +9,15 @@ http.createServer(function (req,res) {
     var pathname = urlObj.pathname;
     if(pathname === '/'){
         res.setHeader('Content-Type','text/html;charset=utf8');
-        fs.createReadStream('./form.html').pipe(res);
-    }else if(pathname === '/form'){
-        //数据普通方式 json格式 urlencoded 表单格式
-        var str = '';
-        req.on('data',function (data) {
-            str+=data;
-        });
-        req.on('end',function () {
-           // console.log(str);// username=123&password=345;
-            var obj= require('querystring').parse(str)
-           //跳转到百度
-            res.statusCode = 302;
-            if(obj.username == '123' &&obj.password == '123'){
-                //调到百度
-                res.setHeader('Location','http://www.baidu.com');
-            }else{
-                //跳腾讯
-                res.setHeader('Location','http://www.qq.com');
-            }
-            res.end('');
-        });
+        fs.createReadStream('./index.html').pipe(res);
+    }else if(pathname == '/jsonp'){
+        //获取前端传递的cb的名字 返回一个cb(数据)
+        var callback = urlObj.query.callback;
+        //cb(JSON.stringify({a:1}));
+        var data = JSON.stringify({name:'你好'});
+        res.setHeader('Content-Type','application/javascript;charset=utf8');
+        //res.end(`${callback}(${data})`);//string or buffer
+        res.end(callback+"("+data+")");
     }else{
         fs.exists('.'+pathname,function (flag) {
             if(flag){
