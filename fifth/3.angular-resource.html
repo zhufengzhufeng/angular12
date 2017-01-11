@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训http://www.zhufengpeixun.cn</title>
+</head>
+<body ng-controller="myCtrl">
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-resource/angular-resource.js"></script>
+<script>
+    var app = angular.module('appModule',['ngResource']);
+    //把某一个功能提取出来
+    app.factory('$book',function ($resource) {
+        //请求的路径
+        return $resource('/users/:id',null,{
+            update:{
+                method:'PUT'
+            }
+        }); //$resouce执行后拥有很多的方法 get query save update delete
+    });
+    app.controller('myCtrl',function ($scope,$http,$book) {
+        //$book.get({id:1}); //  /user/1 get
+        //$book.query();  /user get
+        //$book.save({name:1})  /user 请求体 post
+        //$book.update({id:1},{name:1}) /user/1请求体 put
+        //$book.delete({id:1})   /user/1 delete
+        //$book.delete()   /user/1 delete
+    });
+
+
+
+    //restFul风格  根据http的四个动词 操作数据 get post put delete
+    //  /user   get 获取所有用户
+    //  /user/1 get 获取id为1的用户
+    //  /user  请求体 post 增加用户
+    //  /user/1 请求体 put 修改用户
+    //  /user/1 delete  删除一个用户
+    //  /user delete  删除所有
+
+    //管理用户 一个接口
+    //管理图书一个接口
+    //增加用户/addUser 删除用户/removeUser 修改用户/updateUser  查看用户/getUser
+    //     /getOneUser
+    //管理图书
+</script>
+</body>
+</html>

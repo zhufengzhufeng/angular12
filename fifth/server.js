@@ -17,9 +17,9 @@ http.createServer(function (req,res) {
             str+=data;
         });
         req.on('end',function () {
-           // console.log(str);// username=123&password=345;
+            // console.log(str);// username=123&password=345;
             var obj= require('querystring').parse(str)
-           //跳转到百度
+            //跳转到百度
             res.statusCode = 302;
             if(obj.username == '123' &&obj.password == '123'){
                 //调到百度
