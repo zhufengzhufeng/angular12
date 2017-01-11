@@ -19,12 +19,13 @@
         }); //$resouce执行后拥有很多的方法 get query save update delete
     });
     app.controller('myCtrl',function ($scope,$http,$book) {
-        //$book.get({id:1}); //  /user/1 get
-        //$book.query();  /user get
-        //$book.save({name:1})  /user 请求体 post
+        //$book.get({id:1});            /user/1 get
+        //$book.query();                /user get
+        //$book.save({name:1})          /user 请求体 post
         //$book.update({id:1},{name:1}) /user/1请求体 put
-        //$book.delete({id:1})   /user/1 delete
-        //$book.delete()   /user/1 delete
+        //$book.delete({id:1})          /user/1 delete
+        //$book.delete()                /user delete
+        $book.get({id:1})
     });
 
 
