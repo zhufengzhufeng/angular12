@@ -13,4 +13,25 @@ function readBooks(callback) {
 function writeBooks(data,callback) {
     fs.writeFile('./books.json',JSON.stringify(data),callback);
 }
-var id = 1;
+// var id = 1;
+var id = 1;// =>
+var obj  =  {name:'哈哈'};
+readBooks(function (data) {
+    data = data.map(function (item) {
+        if(item.id == id){
+            return obj
+        }
+        return item;
+    });
+    writeBooks(data,function () {
+        console.log('修改成功');
+    });
+});
+
+/*readBooks(function (data) {
+    data=data.filter(function (item) { //过滤掉不想要的数据
+        return item.id!=id;
+    });
+    writeBooks(data,function () { //在将数据写入到book.json中
+    });
+});*/
