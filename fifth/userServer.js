@@ -34,6 +34,21 @@ http.createServer(function (req,res) {
             case 'POST':
                 break;
             case 'PUT':
+                var uid = id.slice(1);//获取修改的id
+                var str = '';
+                req.on('data',function (data) {
+                    str+=data;
+                });
+                req.on('end',function () {
+                    var u = JSON.parse(str);
+                    usersList = usersList.map(function (item) {
+                        if(item.id == u.id){
+                            return u;
+                        }
+                        return item;
+                    });
+                    res.end(JSON.stringify(u));
+                });
                 break;
             case 'DELETE':
                 if(id){  // /100

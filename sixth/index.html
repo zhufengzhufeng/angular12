@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训BookStore</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<!--表示将对应的模板插入到此div中-->
+<div class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#!/home">BookStore</a>
+        </div>
+        <div>
+            <ul class="navbar-nav nav">
+                <li><a href="#!/home">首页</a></li>
+                <li><a href="#!/list">列表页</a></li>
+                <li><a href="#!/add">新增图书</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div ng-view class="container"></div>
+<!--先引用jquery 在引用bootstrap.js-->
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--angular angular-resource angular-route-->
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-resource/angular-resource.js"></script>
+<script src="node_modules/angular-route/angular-route.js"></script>
+<script>
+    var app = angular.module('appModule',['ngResource','ngRoute']);
+    //route是基于配置的
+    //angular单页的 不跳转页面 而且还要改变路径 hash 会产生历史管理
+    //默认锚点 不会被chrome引擎抓取 #!可以被抓取
+    app.config(function ($routeProvider) { //配置一个服务在原有的服务后面加Provider
+        $routeProvider.when('/home',{
+            templateUrl:'tmpl/home.html',//通过ajax拿到对应的页面
+            controller:'homeCtrl'
+        }).when('/list',{
+            templateUrl:'tmpl/list.html'
+        }).when('/detail',{
+            templateUrl:'tmpl/detail.html'
+        }).when('/add',{
+            templateUrl:'tmpl/add.html'
+        }).otherwise('/home'); //404页面
+    });
+    app.controller('homeCtrl',function ($scope,$sce) {
+        $scope.home = $sce.trustAsHtml('<h1>欢迎来购书</h1>');
+        $('.carousel').carousel();
+    });
+</script>
+</body>
+</html>

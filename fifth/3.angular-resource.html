@@ -39,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" ng-click="save()">Save changes</button>
             </div>
         </div>
     </div>
@@ -64,6 +64,18 @@
     });
     app.controller('myCtrl',function ($scope,$http,$book) {
         $scope.users = $book.query();
+        $scope.save = function () {
+            $book.update({id:$scope.user.id},$scope.user).$promise.then(function (data) { //后台修改好的最新数据
+                $scope.users = $book.query();
+                $('.modal').modal('toggle'); //关闭模态框
+                /*$scope.users = $scope.users.map(function (item) {
+                    if(item.id == data.id){
+                        return data
+                    }
+                    return item;
+                })*/
+            });
+        };
         $scope.update = function (u) {
             //克隆一个对象
             $scope.user = JSON.parse(JSON.stringify(u));
@@ -75,7 +87,6 @@
                     return item.id != u.id;
                 });
             }); // /user/1
-
         }
     });
 
