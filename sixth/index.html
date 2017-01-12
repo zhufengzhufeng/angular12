@@ -35,17 +35,39 @@
     //route是基于配置的
     //angular单页的 不跳转页面 而且还要改变路径 hash 会产生历史管理
     //默认锚点 不会被chrome引擎抓取 #!可以被抓取
+    app.factory('Books',function ($resource) {
+        return $resource('/books/:bid',null,{
+            update:{method:'PUT'}
+        });
+    });//RESTful  query get save delete remove update  /books  /books/100
     app.config(function ($routeProvider) { //配置一个服务在原有的服务后面加Provider
         $routeProvider.when('/home',{
             templateUrl:'tmpl/home.html',//通过ajax拿到对应的页面
             controller:'homeCtrl'
         }).when('/list',{
-            templateUrl:'tmpl/list.html'
-        }).when('/detail',{
-            templateUrl:'tmpl/detail.html'
+            templateUrl:'tmpl/list.html',
+            controller:'listCtrl'
+        }).when('/detail/:id',{ // /detail/3 会在当前的控制器里生成一个参数 $routeParams={id:3}
+            templateUrl:'tmpl/detail.html',
+            controller:'detailCtrl'
         }).when('/add',{
-            templateUrl:'tmpl/add.html'
+            templateUrl:'tmpl/add.html',
+            controller:'addCtrl'
         }).otherwise('/home'); //404页面
+    });
+    app.controller('detailCtrl',function ($routeParams) {
+        console.log($routeParams.id);
+    });
+    app.controller('addCtrl',function ($scope,Books,$location) {//$location路由提供的
+        $scope.add = function () { //保存
+            Books.save($scope.book).$promise.then(function () {
+                //window.location.href
+                $location.path('/list');
+            });    //添加成功后回到列表页
+        }
+    });
+    app.controller('listCtrl',function ($scope,Books) {
+        $scope.bookList = Books.query(); //查询所有图书   /books
     });
     app.controller('homeCtrl',function ($scope,$sce) {
         $scope.home = $sce.trustAsHtml('<h1>欢迎来购书</h1>');
